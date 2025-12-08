@@ -1,0 +1,23 @@
+# Python cache
+__pycache__
+.pyc
+.pyo
+
+# Virtual environment
+env
+
+# RL training logs
+logs
+
+# Saved models
+models
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Windows system files
+Thumbs.db
+ehthumbs.db
+
+# VSCode settings
+.vscode
