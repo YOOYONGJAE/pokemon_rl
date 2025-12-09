@@ -10,7 +10,7 @@ env
 logs
 
 # Saved models
-models
+# models
 
 # Jupyter Notebook checkpoints
 .ipynb_checkpoints

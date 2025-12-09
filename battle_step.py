@@ -100,7 +100,7 @@ def step_core(env, action):
             elif env.my_hp <= 0 and env.opp_hp > 0:
                 reward -= 1.0
             else:
-                reward += 0.1
+                reward -= 0.2
 
         obs = env._get_obs()
         return obs, reward, terminated, truncated, info

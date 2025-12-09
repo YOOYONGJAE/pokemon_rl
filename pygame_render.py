@@ -50,11 +50,11 @@ def render_core(env):
         bar_width = 200
         bar_height = 15
 
-        my_hp_ratio = env.my_hp / env.max_hp_my
-        opp_hp_ratio = env.opp_hp / env.max_hp_opp
+        my_hp_ratio = env.my_hp / env.MAX_HP
+        opp_hp_ratio = env.opp_hp / env.MAX_HP
 
-        my_hp_text = f"{env.my_hp} / {env.max_hp_my}"
-        opp_hp_text = f"{env.opp_hp} / {env.max_hp_opp}"
+        my_hp_text = f"{env.my_hp} / {env.MAX_HP}"
+        opp_hp_text = f"{env.opp_hp} / {env.MAX_HP}"
 
         my_hp_surf = env.font.render(my_hp_text, True, (0, 0, 0))
         opp_hp_surf = env.font.render(opp_hp_text, True, (0, 0, 0))

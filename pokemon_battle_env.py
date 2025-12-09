@@ -10,7 +10,7 @@ class PokemonBattleEnv(gym.Env):
     step()  -> (obs, reward, terminated, truncated, info)
     """
     metadata = {
-        "render_modes": ["human"],
+        "render_modes": ["human"], # 휴먼모드, none cli 모드 존재
         "render_fps": 5,
     }
     
@@ -33,8 +33,8 @@ class PokemonBattleEnv(gym.Env):
 
         # 내 기술
         self.MY_MOVES = {
-            0: {"name": "bodyslam", "base_acc": 0.80, "max_pp": 20},  # 몸통박치기
-            1: {"name": "glare",    "base_acc": 1.00, "max_pp": 20},  # 노려보기
+            0: {"name": "tackle", "base_acc": 0.80, "max_pp": 20},  # 몸통박치기
+            1: {"name": "leer",    "base_acc": 1.00, "max_pp": 20},  # 노려보기
             2: {"name": "charm",    "base_acc": 1.00, "max_pp": 10},  # 애교부리기
             3: {"name": "tailwhip", "base_acc": 1.00, "max_pp": 10},  # 꼬리흔들기
         }
@@ -113,11 +113,6 @@ class PokemonBattleEnv(gym.Env):
         self.total_timesteps_trained = 0         
 
 
-    def _init_battle_params(self):
-        self.max_hp_my = 100
-        self.max_hp_opp = 100
-
-
     def _get_obs(self):
         my_hp_norm = self.my_hp / self.MAX_HP
         opp_hp_norm = self.opp_hp / self.MAX_HP
@@ -154,7 +149,7 @@ class PokemonBattleEnv(gym.Env):
     def _compute_damage(self, attacker_atk, skill_bonus, defender_def):
         base = (attacker_atk + skill_bonus) - defender_def * 0.5
         base = max(1.0, base)
-        rand = self.np_random.uniform(0.85, 1.0)
+        rand = self.np_random.uniform(0.85, 1.0) # 데미지 랜덤 조정
         return int(base * rand)
 
 
@@ -162,12 +157,12 @@ class PokemonBattleEnv(gym.Env):
         if self.opp_hp <= 30 and self.opp_pp[2] > 0:
             return 2  # milk
 
-        candidates = []
+        candidates = [] # 스킬후보군 (우유마시기 빼고)
         probs = []
         base_probs = {0: 0.7, 1: 0.2, 3: 0.1}
 
         for idx in [0, 1, 3]:
-            if self.opp_pp[idx] > 0:
+            if self.opp_pp[idx] > 0: # 사용가능한 스킬만
                 candidates.append(idx)
                 probs.append(base_probs[idx])
 
@@ -177,7 +172,7 @@ class PokemonBattleEnv(gym.Env):
         probs = np.array(probs, dtype=np.float32)
         probs = probs / probs.sum()
 
-        choice = self.np_random.choice(len(candidates), p=probs)
+        choice = self.np_random.choice(len(candidates), p=probs) # 확률 정해놨지만 랜덤성 추가
         return candidates[choice]
 
 
