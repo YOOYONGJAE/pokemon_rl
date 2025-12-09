@@ -100,7 +100,7 @@ class PokemonBattleEnv(gym.Env):
 
         ##### 파이게임 디자인 #####
 
-        self._init_battle_params()
+        # self._init_battle_params()
 
         self.screen = None
         self.clock = None

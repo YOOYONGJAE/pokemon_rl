@@ -42,12 +42,13 @@ if __name__ == "__main__":
         tensorboard_log="./logs/dqn_pokemon_battle",  
     )
 
+    # 평가 후 베스트 모델 자동 저장
     eval_callback = EvalCallback(
         env,
         best_model_save_path="./models/dqn_pokemon_battle_best",
         log_path="./logs/dqn_pokemon_battle_eval",
-        eval_freq=10_000,
-        n_eval_episodes=20,
+        eval_freq=10_000, # 만 스텝마다
+        n_eval_episodes=20, # 20회 테스트
         deterministic=True,
     )
 

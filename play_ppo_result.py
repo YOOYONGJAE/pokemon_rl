@@ -26,7 +26,7 @@ def main():
         ep_reward  = 0.0
 
         while not done:
-            action, _ = model.predict(obs, deterministic=True)
+            action, _ = model.predict(obs, deterministic=True) # 반환된 관측벡터(현상태), 가장 높은 확률로
 
             obs, reward, terminated, truncated, info = env.step(action)
             ep_reward += reward
