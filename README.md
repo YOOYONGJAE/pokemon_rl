@@ -250,5 +250,4 @@ project_root/
     │   └─ best_model.zip
     ├─ dqn_pokemon_battle_final.zip
     └─ ppo_pokemon_battle_final.zip
-::contentReference[oaicite:0]{index=0}
 ```
