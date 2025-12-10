@@ -98,6 +98,8 @@ class PokemonBattleEnv(gym.Env):
         self.opp_acc_debuff_stack = None
         self.turn_count = None
 
+        self.my_move_count = None
+
         ##### 파이게임 디자인 #####
 
         # self._init_battle_params()
@@ -159,6 +161,7 @@ class PokemonBattleEnv(gym.Env):
 
         candidates = [] # 스킬후보군 (우유마시기 빼고)
         probs = []
+        # 상대 행동의 확률 구분 (우유마시기는 상대 에너지에 기반하여 100% 발동하니까 제외했음)
         base_probs = {0: 0.7, 1: 0.2, 3: 0.1}
 
         for idx in [0, 1, 3]:
@@ -196,6 +199,8 @@ class PokemonBattleEnv(gym.Env):
         self.opp_acc_debuff_stack = 0
 
         self.turn_count = 0
+
+        self.my_move_count = np.zeros(4, dtype=int)
 
         obs = self._get_obs()
         info = {}

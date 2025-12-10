@@ -22,6 +22,9 @@ def step_core(env, action):
         if env.my_hp > 0:
             if env.my_pp[action] > 0:
                 env.my_pp[action] -= 1
+
+                env.my_move_count[action] += 1
+                
                 if action == 0:  # 몸통박치기 [설명 : 물리 공격, 기본 공격력 +10, 명중률 80% (버프에 따라 증가), 상대 HP 감소]
                     base_acc = env.MY_MOVES[0]["base_acc"]
                     current_acc = base_acc + 0.01 * env.my_acc_buff_stack

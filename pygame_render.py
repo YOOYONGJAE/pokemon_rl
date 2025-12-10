@@ -23,6 +23,7 @@ def render_core(env):
             f"PP: {env.my_pp}, AccBuff: {env.my_acc_buff_stack}")
         print(f"  Opp HP: {env.opp_hp:3d}, Def: {env.opp_def:3.0f}, "
             f"PP: {env.opp_pp}, AccDebuff: {env.opp_acc_debuff_stack}")
+        print(f"My move counts:", getattr(env, "my_move_count", None))
         print("-" * 50)
 
     else:
@@ -98,11 +99,12 @@ def render_core(env):
         env.screen.blit(wld_surf,   (10, 70))
         env.screen.blit(stats_surf, (10, 90))
 
-        # (선택) 학습 total_timesteps도 띄우고 싶으면:
-        # if hasattr(env, "total_timesteps_trained") and env.total_timesteps_trained > 0:
-        #     tt_text  = f"Trained on: {env.total_timesteps_trained:,} timesteps"
-        #     tt_surf  = env.font.render(tt_text, True, (0, 0, 0))
-        #     env.screen.blit(tt_surf, (10, 70))        
+        move_counts = getattr(env, "my_move_count", [0, 0, 0, 0])
+        y0 = 120
+        for i, name in enumerate(env.my_move_names):
+            text  = f"{name}: {move_counts[i]} USED"
+            surf  = env.font.render(text, True, (0, 0, 0))
+            env.screen.blit(surf, (10, y0 + i * 18))
 
         pygame.draw.rect(env.screen, (0, 255, 0), (my_x, my_y - 20, int(bar_width * my_hp_ratio), bar_height))
         pygame.draw.rect(env.screen, (0, 255, 0), (opp_x, opp_y - 20, int(bar_width * opp_hp_ratio), bar_height))
