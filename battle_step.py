@@ -24,7 +24,7 @@ def step_core(env, action):
                 env.my_pp[action] -= 1
 
                 env.my_move_count[action] += 1
-                
+
                 if action == 0:  # 몸통박치기 [설명 : 물리 공격, 기본 공격력 +10, 명중률 80% (버프에 따라 증가), 상대 HP 감소]
                     base_acc = env.MY_MOVES[0]["base_acc"]
                     current_acc = base_acc + 0.01 * env.my_acc_buff_stack
@@ -54,7 +54,11 @@ def step_core(env, action):
         # 상대턴
         if env.opp_hp > 0 and env.my_hp > 0:
             opp_action = env._sample_opp_action()
-            env.last_opp_move_name = env.opp_move_names[opp_action]
+            # opp_action이 None일 수도 있으니 먼저 체크
+            if opp_action is not None:
+                env.last_opp_move_name = env.opp_move_names[opp_action]
+            else:
+                env.last_opp_move_name = "" 
 
             if opp_action is not None and env.opp_pp[opp_action] > 0:
                 env.opp_pp[opp_action] -= 1

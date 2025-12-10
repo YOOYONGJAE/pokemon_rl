@@ -5,7 +5,7 @@ import numpy as np
 def main():
     env = PokemonBattleEnv(render_mode=None)
 
-    n_episodes = 100000
+    n_episodes = 10000
 
     total_rewards = []
     wins = 0
